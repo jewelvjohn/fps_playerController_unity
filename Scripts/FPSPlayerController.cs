@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class FPSPlayerController : MonoBehaviour
 {
     public float speed;
     public float sprint;
@@ -22,19 +22,14 @@ public class PlayerController : MonoBehaviour
     private float lookRotation;
     private float velocity;
 
-    private Animator playerAnim;
-    private bool isMoving;
-
     private void Start() 
     {
         rb = GetComponent<Rigidbody>();
-        playerAnim = GetComponent<Animator>();
     }
 
     private void FixedUpdate() 
     {
         Movement();
-        Animation();
     }
 
     private void LateUpdate() 
@@ -48,15 +43,6 @@ public class PlayerController : MonoBehaviour
 
         Vector3 currentVelocity = rb.velocity;
         Vector3 targetVelocity = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-
-        if(Mathf.Abs(Input.GetAxis("Horizontal")) > 0 || Mathf.Abs(Input.GetAxis("Vertical")) > 0)
-        {
-            isMoving = true;
-        }
-        else
-        {
-            isMoving = false;
-        }
 
         if(Input.GetAxis("Fire3") > 0)
         {
@@ -91,11 +77,5 @@ public class PlayerController : MonoBehaviour
         lookRotation += -Input.GetAxis("Mouse Y") * sensitivity;
         lookRotation = Mathf.Clamp(lookRotation, viewAngle.x, viewAngle.y);
         camHolder.transform.eulerAngles = new Vector3(lookRotation, camHolder.transform.eulerAngles.y, camHolder.transform.eulerAngles.z);
-    }
-
-    private void Animation() 
-    {
-        playerAnim.SetFloat("WalkSpeed", velocity);
-        playerAnim.SetBool("Moving", isMoving);
     }
 }

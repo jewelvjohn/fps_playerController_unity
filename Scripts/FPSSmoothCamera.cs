@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SmoothCamera : MonoBehaviour
+public class FPSSmoothCamera : MonoBehaviour
 {
     public float pLerp;
     public float rLerp;
